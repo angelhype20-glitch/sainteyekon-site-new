@@ -1,0 +1,12 @@
+/*
+SAINT EYEKON typography bridge.
+If Copperplate is installed, the browser uses it. Otherwise the site loads Cinzel
+from Google Fonts via index.html, preserving the intended engraved/copperplate feel.
+*/
+@font-face {
+  font-family: "Saint Eyekon Copperplate";
+  src: local("Copperplate"), local("Copperplate Gothic Bold");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
