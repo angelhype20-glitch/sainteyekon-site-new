@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sainteyekon.com</title>
+<meta name="description" content="SAINT EYEKON — by Angel Kabrera.">
+<meta name="robots" content="index,follow">
+
+<style>
+@font-face{
+  font-family:"Copperplate Web";
+  src:url("fonts/CopperplateGothicBold.ttf") format("truetype");
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
+
+:root{
+  --bg:#fff;
+  --fg:#080808;
+  --muted:#666;
+  --panel:rgba(255,255,255,.97);
+}
+
+html[data-theme="dark"]{
+  --bg:#090909;
+  --fg:#f5f5f5;
+  --muted:#aaa;
+  --panel:rgba(9,9,9,.97);
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:"Copperplate Web","Copperplate","Copperplate Gothic Bold",Georgia,serif;
+  transition:background-color .25s,color .25s;
+}
+
+button,a{font:inherit;color:inherit}
+a{text-decoration:none}
+img{display:block;width:100%;height:auto}
+
+/* ONLY THE MENU CONTROLS ARE VISIBLE.
+   There is NO sainteyekon.com visual header. */
+
+.menu-button,
+.theme-button{
+  position:fixed;
+  z-index:70;
+  top:18px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  padding:8px 4px;
+  letter-spacing:.08em;
+  font-size:.72rem;
+  text-transform:uppercase;
+}
+
+.menu-button{right:22px}
+.theme-button{right:85px}
+
+/* MENU */
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.18);
+  opacity:0;
+  visibility:hidden;
+  z-index:60;
+  transition:.25s;
+}
+
+.menu{
+  position:fixed;
+  top:0;
+  left:0;
+  width:min(390px,92vw);
+  height:100vh;
+  z-index:61;
+  padding:25px;
+  background:var(--panel);
+  transform:translateX(-100%);
+  transition:transform .35s ease;
+  overflow:auto;
+}
+
+body.menu-open .menu{transform:translateX(0)}
+body.menu-open .menu-overlay{opacity:1;visibility:visible}
+
+.menu-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:.08em;
+}
+
+.close-button{
+  border:0;
+  background:transparent;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.menu-links{margin-top:65px}
+
+.menu-link,.menu-parent{
+  display:flex;
+  width:100%;
+  justify-content:space-between;
+  border:0;
+  background:transparent;
+  padding:12px 0;
+  text-align:left;
+  cursor:pointer;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.submenu{display:none;padding-left:15px}
+.submenu.open{display:block}
+
+.submenu button{
+  display:block;
+  width:100%;
+  border:0;
+  background:transparent;
+  padding:8px 0;
+  text-align:left;
+  cursor:pointer;
+  color:var(--muted);
+  font-size:.7rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.menu-email{
+  display:block;
+  margin-top:70px;
+  padding-top:20px;
+  border-top:1px solid var(--muted);
+  font-size:12px;
+  word-break:break-word;
+}
+
+/* SECTIONS */
+
+.site-section{display:none}
+.site-section.active{display:block}
+
+.hero{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:40px 20px 70px;
+}
+
+.hero-inner{
+  width:min(1050px,100%);
+  text-align:center;
+}
+
+.hero-star{
+  font-size:clamp(70px,15vw,150px);
+  line-height:.75;
+  margin-bottom:30px;
+}
+
+.hero-photo{
+  max-height:68vh;
+  object-fit:contain;
+  margin:0 auto 28px;
+}
+
+.hero-title{
+  margin:0;
+  font-size:clamp(2.4rem,8vw,7.8rem);
+  line-height:.92;
+  letter-spacing:.02em;
+  font-weight:800;
+}
+
+.hero-credit{
+  margin:14px 0 0;
+  font-size:.72rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.section{
+  width:min(1180px,100%);
+  margin:0 auto;
+  padding:90px 20px;
+}
+
+.section-head{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.section-kicker{
+  margin:0 0 10px;
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+h2{
+  margin:0;
+  font-size:clamp(2rem,6vw,5.5rem);
+  line-height:.95;
+  letter-spacing:.02em;
+}
+
+.era-block{margin-top:70px}
+
+.era-heading{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:22px;
+}
+
+.era-heading h3{
+  margin:0;
+  font-size:clamp(1.35rem,3vw,2.6rem);
+}
+
+.era-heading span{
+  color:var(--muted);
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:lowercase;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+
+.card{
+  position:relative;
+  overflow:hidden;
+  background:#111;
+  cursor:pointer;
+}
+
+.card img{
+  aspect-ratio:4/5;
+  object-fit:cover;
+  transition:transform .3s ease;
+}
+
+.card:hover img{transform:scale(1.025)}
+
+.star-mafia-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  align-items:center;
+}
+
+.star-mafia-title{
+  font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+  font-size:clamp(54px,11vw,145px);
+  line-height:.8;
+  letter-spacing:-.035em;
+}
+
+.star-mafia-photo img{
+  max-height:78vh;
+  object-fit:cover;
+}
+
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.game-card{
+  border:1px solid currentColor;
+  padding:25px;
+  min-height:200px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.game-card h3{
+  font-size:clamp(25px,4vw,48px);
+  line-height:.9;
+  margin:0 0 18px;
+}
+
+.game-card p{
+  font-size:.68rem;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+.game-button{
+  border:1px solid currentColor;
+  background:transparent;
+  padding:9px 12px;
+  cursor:pointer;
+  font-size:.65rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.game-message{
+  font-size:.7rem;
+  margin-top:14px;
+  min-height:18px;
+}
+
+footer{
+  padding:70px 20px 30px;
+  text-align:center;
+}
+
+footer .footer-star{
+  font-size:2rem;
+  margin-bottom:18px;
+}
+
+footer p{
+  margin:6px 0;
+  color:var(--muted);
+  font-size:.66rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  padding:22px;
+  background:rgba(0,0,0,.92);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s;
+}
+
+.lightbox.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.lightbox img{
+  max-width:95vw;
+  max-height:90vh;
+  width:auto;
+  object-fit:contain;
+}
+
+.lightbox-close{
+  position:absolute;
+  top:18px;
+  right:22px;
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:1.7rem;
+  cursor:pointer;
+}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .star-mafia-layout{grid-template-columns:1fr}
+  .star-mafia-title{text-align:center}
+  .games-grid{grid-template-columns:1fr}
+  .section{padding:70px 14px}
+}
+
+@media(max-width:480px){
+  .grid{grid-template-columns:1fr}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+<!-- NO VISIBLE SITE-NAME HEADER -->
+
+<button class="theme-button" id="themeButton" onclick="cycleTheme()">AUTO</button>
+<button class="menu-button" onclick="openMenu()">MENU</button>
+
+<aside class="menu" id="siteMenu">
+
+  <div class="menu-top">
+    <span>SAINT EYEKON</span>
+    <button class="close-button" onclick="closeMenu()">×</button>
+  </div>
+
+  <nav class="menu-links">
+
+    <button class="menu-link" onclick="showSection('home')">HOME</button>
+
+    <button class="menu-parent" onclick="toggleSub(this)">
+      WORK <span>＋</span>
+    </button>
+
+    <div class="submenu">
+      <button onclick="showSection('halloween')">HALLOWEEN</button>
+      <button onclick="showSection('sword')">THE SWORD</button>
+      <button onclick="showSection('saint')">SAINT EYEKON</button>
+    </div>
+
+    <button class="menu-parent" onclick="toggleSub(this)">
+      BIRTHDAYS <span>＋</span>
+    </button>
+
+    <div class="submenu">
+      <button onclick="showSection('birthday2023')">2023</button>
+      <button onclick="showSection('birthday2024')">2024</button>
+      <button onclick="showSection('birthday2025')">2025</button>
+    </div>
+
+    <button class="menu-link" onclick="showSection('photocards')">PHOTOCARDS</button>
+    <button class="menu-link" onclick="showSection('starMafia')">STAR MAFIA ERA</button>
+    <button class="menu-link" onclick="showSection('games')">GAMES</button>
+    <button class="menu-link" onclick="showSection('angel')">ANGEL'S VERSION</button>
+
+  </nav>
+
+  <a class="menu-email" href="mailto:sainteyekon20@gmail.com">
+    sainteyekon20@gmail.com
+  </a>
+
+</aside>
+
+<main>
+
+<section id="home" class="site-section active hero">
+  <div class="hero-inner">
+
+    <div class="hero-star">⭑</div>
+
+    <img
+      class="hero-photo"
+      src="work/home/881ff43f-19d0-4a6e-b290-f7ebfa85e1a0.jpeg"
+      alt="SAINT EYEKON"
+      loading="eager">
+
+    <h1 class="hero-title">SAINT EYEKON</h1>
+
+    <p class="hero-credit">by Angel Kabrera</p>
+
+  </div>
+</section>
+
+<section id="halloween" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">WORK / HALLOWEEN</p>
+    <h2>HALLOWEEN</h2>
+  </div>
+  <div id="halloweenGrid"></div>
+</section>
+
+<section id="sword" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">WORK</p>
+    <h2>THE SWORD</h2>
+  </div>
+  <div class="grid" id="swordGrid"></div>
+</section>
+
+<section id="saint" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">WORK</p>
+    <h2>SAINT EYEKON</h2>
+  </div>
+  <div class="grid" id="saintGrid"></div>
+</section>
+
+<section id="birthday2023" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">BIRTHDAY</p>
+    <h2>2023</h2>
+  </div>
+  <div class="grid" id="b23"></div>
+</section>
+
+<section id="birthday2024" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">BIRTHDAY</p>
+    <h2>2024</h2>
+  </div>
+  <div class="grid" id="b24"></div>
+</section>
+
+<section id="birthday2025" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">BIRTHDAY</p>
+    <h2>2025</h2>
+  </div>
+  <div class="grid" id="b25"></div>
+</section>
+
+<section id="photocards" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">ARCHIVE</p>
+    <h2>PHOTOCARDS</h2>
+  </div>
+  <div class="grid" id="photoGrid"></div>
+</section>
+
+<section id="starMafia" class="site-section section">
+  <div class="star-mafia-layout">
+
+    <div>
+      <div class="star-mafia-title">
+        STAR<br>MAFIA<br>ERA
+      </div>
+    </div>
+
+    <div class="star-mafia-photo">
+      <img
+        src="work/star-mafia-era/461633b1-9515-4f88-aedc-f87a97de0d5a.jpg"
+        alt="STAR MAFIA ERA">
+    </div>
+
+  </div>
+</section>
+
+<section id="games" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">SAINT EYEKON ORIGINALS</p>
+    <h2>GAMES</h2>
+  </div>
+
+  <div class="games-grid">
+
+    <article class="game-card">
+      <h3>STAR<br>CATCHER</h3>
+      <p>Catch the stars. Keep the chaos alive.</p>
+      <button class="game-button" onclick="starCatcher(this)">PLAY</button>
+      <div class="game-message"></div>
+    </article>
+
+    <article class="game-card">
+      <h3>COWBOY<br>ALIEN</h3>
+      <p>Be the khaos. Shoot for the stars.</p>
+      <button class="game-button" onclick="cowboyAlien(this)">PLAY</button>
+      <div class="game-message"></div>
+    </article>
+
+    <article class="game-card">
+      <h3>THUNDER<br>RUN</h3>
+      <p>Escape the storm and survive the era.</p>
+      <button class="game-button" onclick="thunderRun(this)">PLAY</button>
+      <div class="game-message"></div>
+    </article>
+
+  </div>
+</section>
+
+<section id="angel" class="site-section section">
+  <div class="section-head">
+    <p class="section-kicker">ARCHIVE</p>
+    <h2>ANGEL'S VERSION</h2>
+  </div>
+  <div class="grid" id="angelGrid"></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-star">⭑</div>
+  <p>SAINT EYEKON — by Angel Kabrera</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" alt="">
+</div>
+
+<script>
+
+/*
+============================================================
+IMPORTANT PATH STRUCTURE
+
+The website does NOT use an "assets" folder.
+
+All images are expected directly under:
+WORK/
+and then their SUBFOLDERS.
+
+Example:
+work/halloween/cowboy-alien/
+work/halloween/the-beast/
+work/halloween/mummykon/
+work/halloween/vampikon/
+
+============================================================
+*/
+
+const DATA={
+
+  halloween:{
+
+    "COWBOY ALIEN":{
+      slogan:"be the khaos",
+      folder:"work/halloween/cowboy-alien/",
+      files:[
+        "img_5414.jpg",
+        "e44ff854-2f76-4295-abb8-5e42a632a73b.jpg",
+        "85e09be7-7249-4558-8444-92d1ff21a67c.jpg",
+        "970ebb3a-76e9-4088-8a12-db7c8d2b3118.jpg",
+        "img_5306.jpg"
+      ]
+    },
+
+    "THE BEAST":{
+      slogan:"thriller night, bae!",
+      folder:"work/halloween/the-beast/",
+      files:[
+        "the-beast.jpg",
+        "5a5121fd-037c-462c-82a9-58ee60365eb8.jpeg",
+        "img_5561.jpg",
+        "img_5588.jpg",
+        "img_5662.jpg",
+        "69469daf-103a-40a5-897f-0b40fc8d8c1b.jpg"
+      ]
+    },
+
+    "MUMMYKON":{
+      slogan:"saint eyekon halloween",
+      folder:"work/halloween/mummykon/",
+      files:[
+        "9d0e7d0e-ba06-4b4c-bd8b-586da678941e.jpg",
+        "d6920e9c-c376-4a11-85fb-0f8ed6ae1887.jpg",
+        "0794170c-3200-4653-84fa-faaeb81682aa.jpg",
+        "phonto-2.jpg",
+        "b0f6e734-c726-47af-8a4a-40ce399a2c6c.jpg",
+        "312e1957-a680-403e-a410-da286577829e.jpg"
+      ]
+    },
+
+    "VAMPIKON":{
+      slogan:"i will eat your heart out!",
+      folder:"work/halloween/vampikon/",
+      files:[
+        "phonto.jpg",
+        "img_6361.jpg",
+        "img_6374.jpg",
+        "img_6360.jpg",
+        "img_6362.jpg",
+        "img_6363.jpg",
+        "img_6364.jpg",
+        "5b57ada3-e0af-4cb3-97b7-093f1ae0d8b4.jpg"
+      ]
+    }
+
+  },
+
+  sword:{
+    folder:"work/the-sword/",
+    files:[
+      "7d429471-2318-48f8-8547-c363ac0f2554.jpeg",
+      "3755107d-62ba-42bd-b522-6255565f3ccd.jpeg",
+      "8290a58f-c51b-4bc4-bc92-3b218961f75f.jpeg"
+    ]
+  },
+
+  saint:{
+    folder:"work/saint-eyekon/",
+    files:[
+      "img_3315.jpg",
+      "img_3317.jpg"
+    ]
+  },
+
+  birthdays:{
+
+    "2023":{
+      folder:"work/birthdays/2023/",
+      files:[
+        "img_6526.jpg",
+        "e786875f-98bc-4b80-9ebb-c4659df0deba.jpeg",
+        "af013d63-84de-46f5-8d9a-af790d05ff01.jpg",
+        "img_5687.jpg",
+        "b9462879-2bd1-42b9-ab00-455c4ab6d1e4.jpeg"
+      ]
+    },
+
+    "2024":{
+      folder:"work/birthdays/2024/",
+      files:[
+        "7502d9b6-67d5-4708-a71d-b807700b5be0.jpg",
+        "f133708d-23e3-4111-b46b-9951aed505d7.jpg",
+        "453fa305-2067-44b0-b25a-a651b8c6f67f.jpg",
+        "bd24f865-811a-4464-9f64-79c24ebafe09.jpg",
+        "1f36c5ca-fdc6-43c4-96ea-24cdde49775e.jpg",
+        "a83faaa1-fcd0-443c-8d40-a94ccfba6113.jpg"
+      ]
+    },
+
+    "2025":{
+      folder:"work/birthdays/2025/",
+      files:[
+        "img_0305.jpg",
+        "img_0307.jpg",
+        "img_0308.jpg",
+        "img_0306.jpg"
+      ]
+    }
+
+  },
+
+  photocards:{
+    folder:"work/photocards/",
+    files:[
+      "c97cea28-2c76-44b3-95d5-3111a6296c8a.jpeg",
+      "00ee069c-9eae-41fa-8035-7351d20a1233.jpg",
+      "52b85be2-2734-435b-8f87-38983166a4cc.jpg",
+      "9418b675-ab8d-452e-9ed4-549aac83e50f.jpeg"
+    ]
+  },
+
+  angel:{
+    folder:"work/angel-version/",
+    files:[
+      "img_9908.jpg",
+      "img_9725.jpg"
+    ]
+  }
+
+};
+
+function makeCard(src,label=""){
+
+  const card=document.createElement("div");
+  card.className="card";
+
+  const img=document.createElement("img");
+  img.src=src;
+  img.alt=label||src.split("/").pop();
+  img.loading="lazy";
+
+  card.appendChild(img);
+
+  card.onclick=()=>{
+    openLightbox(src,img.alt);
+  };
+
+  return card;
+}
+
+function renderGrid(id,folder,files,label=""){
+
+  const el=document.getElementById(id);
+
+  if(!el)return;
+
+  el.innerHTML="";
+
+  files.forEach(file=>{
+    el.appendChild(
+      makeCard(folder+file,label)
+    );
+  });
+
+}
+
+function renderAll(){
+
+  const halloweenGrid=
+    document.getElementById("halloweenGrid");
+
+  halloweenGrid.innerHTML="";
+
+  Object.entries(DATA.halloween)
+    .forEach(([name,data])=>{
+
+      const block=
+        document.createElement("div");
+
+      block.className="era-block";
+
+      block.innerHTML=`
+        <div class="era-heading">
+          <h3>${name}</h3>
+          <span>${data.slogan}</span>
+        </div>
+      `;
+
+      const grid=
+        document.createElement("div");
+
+      grid.className="grid";
+
+      data.files.forEach(file=>{
+        grid.appendChild(
+          makeCard(data.folder+file)
+        );
+      });
+
+      block.appendChild(grid);
+      halloweenGrid.appendChild(block);
+
+    });
+
+  renderGrid(
+    "swordGrid",
+    DATA.sword.folder,
+    DATA.sword.files
+  );
+
+  renderGrid(
+    "saintGrid",
+    DATA.saint.folder,
+    DATA.saint.files
+  );
+
+  renderGrid(
+    "b23",
+    DATA.birthdays["2023"].folder,
+    DATA.birthdays["2023"].files
+  );
+
+  renderGrid(
+    "b24",
+    DATA.birthdays["2024"].folder,
+    DATA.birthdays["2024"].files
+  );
+
+  renderGrid(
+    "b25",
+    DATA.birthdays["2025"].folder,
+    DATA.birthdays["2025"].files
+  );
+
+  renderGrid(
+    "photoGrid",
+    DATA.photocards.folder,
+    DATA.photocards.files
+  );
+
+  renderGrid(
+    "angelGrid",
+    DATA.angel.folder,
+    DATA.angel.files
+  );
+
+}
+
+renderAll();
+
+/* MENU */
+
+function openMenu(){
+  document.body.classList.add("menu-open");
+}
+
+function closeMenu(){
+  document.body.classList.remove("menu-open");
+}
+
+function toggleSub(button){
+
+  const submenu=button.nextElementSibling;
+
+  submenu.classList.toggle("open");
+}
+
+function showSection(id){
+
+  document
+    .querySelectorAll(".site-section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
+
+  const target=document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  closeMenu();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+/* AUTO LIGHT / NIGHT */
+
+const root=document.documentElement;
+const themeButton=document.getElementById("themeButton");
+
+const media=
+  window.matchMedia("(prefers-color-scheme: dark)");
+
+function applyTheme(mode){
+
+  const actual=
+    mode==="auto"
+    ? (media.matches?"dark":"light")
+    : mode;
+
+  root.setAttribute(
+    "data-theme",
+    actual
+  );
+
+  themeButton.textContent=
+    mode==="auto"
+    ? "AUTO"
+    : mode==="dark"
+    ? "NIGHT"
+    : "LIGHT";
+
+}
+
+let theme=
+  localStorage.getItem("sey-theme")||"auto";
+
+applyTheme(theme);
+
+function cycleTheme(){
+
+  theme=
+    theme==="auto"
+    ? "dark"
+    : theme==="dark"
+    ? "light"
+    : "auto";
+
+  localStorage.setItem(
+    "sey-theme",
+    theme
+  );
+
+  applyTheme(theme);
+}
+
+media.addEventListener?.(
+  "change",
+  ()=>{
+    if(theme==="auto"){
+      applyTheme("auto");
+    }
+  }
+);
+
+/* LIGHTBOX */
+
+function openLightbox(src,alt){
+
+  const lightbox=
+    document.getElementById("lightbox");
+
+  const image=
+    document.getElementById("lightboxImg");
+
+  image.src=src;
+  image.alt=alt;
+
+  lightbox.classList.add("open");
+}
+
+function closeLightbox(){
+
+  const lightbox=
+    document.getElementById("lightbox");
+
+  const image=
+    document.getElementById("lightboxImg");
+
+  lightbox.classList.remove("open");
+  image.src="";
+}
+
+document
+  .getElementById("lightbox")
+  .addEventListener(
+    "click",
+    event=>{
+      if(event.target.id==="lightbox"){
+        closeLightbox();
+      }
+    }
+  );
+
+document.addEventListener(
+  "keydown",
+  event=>{
+    if(event.key==="Escape"){
+      closeLightbox();
+      closeMenu();
+    }
+  }
+);
+
+/* GAMES */
+
+function gameMsg(button,text){
+  button.parentElement
+    .querySelector(".game-message")
+    .textContent=text;
+}
+
+function starCatcher(button){
+  gameMsg(
+    button,
+    "⭑ YOU CAUGHT A STAR. SCORE +1."
+  );
+}
+
+function cowboyAlien(button){
+  gameMsg(
+    button,
+    "☄ KHAOS LEVEL: ACTIVATED."
+  );
+}
+
+function thunderRun(button){
+  gameMsg(
+    button,
+    "⚡ YOU SURVIVED THE THUNDER."
+  );
+}
+
+</script>
+
+</body>
+</html>
