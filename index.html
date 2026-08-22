@@ -23,8 +23,6 @@
   --panel:rgba(255,255,255,.97);
 }
 
-  
-  
 html[data-theme="dark"]{
   --bg:#090909;
   --fg:#f5f5f5;
@@ -48,8 +46,7 @@ button,a{font:inherit;color:inherit}
 a{text-decoration:none}
 img{display:block;width:100%;height:auto}
 
-/* ONLY THE MENU CONTROLS ARE VISIBLE.
-   There is NO sainteyekon.com visual header. */
+/* MENU */
 
 .menu-button,
 .theme-button{
@@ -67,8 +64,6 @@ img{display:block;width:100%;height:auto}
 
 .menu-button{right:22px}
 .theme-button{right:85px}
-
-/* MENU */
 
 .menu-overlay{
   position:fixed;
@@ -288,6 +283,8 @@ h2{
   object-fit:cover;
 }
 
+/* GAMES */
+
 .games-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -301,6 +298,8 @@ h2{
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  position:relative;
+  overflow:hidden;
 }
 
 .game-card h3{
@@ -323,12 +322,222 @@ h2{
   font-size:.65rem;
   letter-spacing:.08em;
   text-transform:uppercase;
+  transition:background .2s,color .2s;
+}
+
+.game-button:hover{
+  background:var(--fg);
+  color:var(--bg);
 }
 
 .game-message{
   font-size:.7rem;
   margin-top:14px;
   min-height:18px;
+}
+
+/* GAME MODAL */
+
+.game-modal{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(0,0,0,.92);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .25s ease;
+}
+
+.game-modal.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.game-window{
+  width:min(1000px,100%);
+  height:min(760px,94vh);
+  background:#050505;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.3);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 0 50px rgba(255,255,255,.08);
+}
+
+.game-topbar{
+  height:52px;
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  border-bottom:1px solid rgba(255,255,255,.2);
+  z-index:5;
+}
+
+.game-name{
+  font-size:.72rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+.game-close{
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:25px;
+  cursor:pointer;
+  padding:4px 8px;
+}
+
+.game-canvas-wrap{
+  position:relative;
+  flex:1;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#020202;
+}
+
+.game-canvas{
+  display:block;
+  width:100%;
+  height:100%;
+  touch-action:none;
+  cursor:crosshair;
+}
+
+.game-hud{
+  position:absolute;
+  top:13px;
+  left:15px;
+  right:15px;
+  display:flex;
+  justify-content:space-between;
+  pointer-events:none;
+  z-index:4;
+  font-family:"Copperplate Web","Copperplate",Georgia,serif;
+  font-size:.65rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.game-hud span{
+  text-shadow:0 2px 5px #000;
+}
+
+.game-instructions{
+  position:absolute;
+  bottom:12px;
+  left:0;
+  right:0;
+  text-align:center;
+  pointer-events:none;
+  font-size:.55rem;
+  letter-spacing:.08em;
+  opacity:.65;
+  text-transform:uppercase;
+}
+
+.game-start-screen,
+.game-over-screen{
+  position:absolute;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:rgba(0,0,0,.62);
+  backdrop-filter:blur(5px);
+}
+
+.game-over-screen{
+  display:none;
+}
+
+.game-start-content,
+.game-over-content{
+  width:min(500px,90%);
+}
+
+.game-start-content h3,
+.game-over-content h3{
+  font-size:clamp(38px,8vw,82px);
+  line-height:.82;
+  margin:0 0 20px;
+  letter-spacing:-.03em;
+}
+
+.game-start-content p,
+.game-over-content p{
+  font-size:.65rem;
+  line-height:1.6;
+  color:#aaa;
+  margin-bottom:25px;
+}
+
+.game-action{
+  border:1px solid #fff;
+  background:#fff;
+  color:#000;
+  padding:12px 20px;
+  cursor:pointer;
+  font-size:.65rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.game-action:hover{
+  background:transparent;
+  color:#fff;
+}
+
+/* MOBILE GAME CONTROLS */
+
+.touch-controls{
+  position:absolute;
+  left:15px;
+  right:15px;
+  bottom:28px;
+  display:flex;
+  justify-content:space-between;
+  pointer-events:none;
+  z-index:6;
+}
+
+.touch-controls button{
+  pointer-events:auto;
+  width:62px;
+  height:62px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:20px;
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+.touch-controls.center{
+  justify-content:center;
+}
+
+.touch-controls .fire{
+  width:78px;
+  height:78px;
+  font-size:12px;
+  letter-spacing:.08em;
 }
 
 footer{
@@ -386,19 +595,61 @@ footer p{
 }
 
 @media(max-width:760px){
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .star-mafia-layout{grid-template-columns:1fr}
-  .star-mafia-title{text-align:center}
-  .games-grid{grid-template-columns:1fr}
-  .section{padding:70px 14px}
+
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+
+  .star-mafia-layout{
+    grid-template-columns:1fr
+  }
+
+  .star-mafia-title{
+    text-align:center
+  }
+
+  .games-grid{
+    grid-template-columns:1fr
+  }
+
+  .section{
+    padding:70px 14px
+  }
+
+  .game-window{
+    height:94vh;
+  }
+
+  .game-topbar{
+    height:46px;
+    min-height:46px;
+  }
+
+  .game-instructions{
+    bottom:100px;
+  }
+
 }
 
 @media(max-width:480px){
-  .grid{grid-template-columns:1fr}
+
+  .grid{
+    grid-template-columns:1fr
+  }
+
+  .touch-controls{
+    bottom:22px;
+  }
+
 }
 
 @media(prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important;transition:none!important}
+
+  *{
+    scroll-behavior:auto!important;
+    transition:none!important
+  }
+
 }
 </style>
 </head>
@@ -406,8 +657,6 @@ footer p{
 <body>
 
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
-
-<!-- NO VISIBLE SITE-NAME HEADER -->
 
 <button class="theme-button" id="themeButton" onclick="cycleTheme()">AUTO</button>
 <button class="menu-button" onclick="openMenu()">MENU</button>
@@ -551,6 +800,7 @@ footer p{
 </section>
 
 <section id="games" class="site-section section">
+
   <div class="section-head">
     <p class="section-kicker">SAINT EYEKON ORIGINALS</p>
     <h2>GAMES</h2>
@@ -561,25 +811,26 @@ footer p{
     <article class="game-card">
       <h3>STAR<br>CATCHER</h3>
       <p>Catch the stars. Keep the chaos alive.</p>
-      <button class="game-button" onclick="starCatcher(this)">PLAY</button>
+      <button class="game-button" onclick="launchGame('star')">PLAY</button>
       <div class="game-message"></div>
     </article>
 
     <article class="game-card">
       <h3>COWBOY<br>ALIEN</h3>
       <p>Be the khaos. Shoot for the stars.</p>
-      <button class="game-button" onclick="cowboyAlien(this)">PLAY</button>
+      <button class="game-button" onclick="launchGame('cowboy')">PLAY</button>
       <div class="game-message"></div>
     </article>
 
     <article class="game-card">
       <h3>THUNDER<br>RUN</h3>
       <p>Escape the storm and survive the era.</p>
-      <button class="game-button" onclick="thunderRun(this)">PLAY</button>
+      <button class="game-button" onclick="launchGame('thunder')">PLAY</button>
       <div class="game-message"></div>
     </article>
 
   </div>
+
 </section>
 
 <section id="angel" class="site-section section">
@@ -597,29 +848,117 @@ footer p{
   <p>SAINT EYEKON — by Angel Kabrera</p>
 </footer>
 
+<!-- LIGHTBOX -->
+
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()">×</button>
   <img id="lightboxImg" alt="">
+</div>
+
+<!-- GAME SYSTEM -->
+
+<div class="game-modal" id="gameModal">
+
+  <div class="game-window">
+
+    <div class="game-topbar">
+      <span class="game-name" id="gameName">SAINT EYEKON GAME</span>
+      <button class="game-close" onclick="closeGame()">×</button>
+    </div>
+
+    <div class="game-canvas-wrap">
+
+      <canvas id="gameCanvas" class="game-canvas"></canvas>
+
+      <div class="game-hud">
+        <span id="gameScore">SCORE 0000</span>
+        <span id="gameLives">♥ ♥ ♥</span>
+      </div>
+
+      <div class="game-instructions" id="gameInstructions">
+        TOUCH / DRAG / KEYBOARD
+      </div>
+
+      <div class="game-start-screen" id="gameStartScreen">
+
+        <div class="game-start-content">
+
+          <h3 id="gameStartTitle">
+            STAR<br>CATCHER
+          </h3>
+
+          <p id="gameStartText">
+            CATCH THE FALLING STARS.<br>
+            DON'T LET THE CHAOS ESCAPE.
+          </p>
+
+          <button class="game-action" onclick="startCurrentGame()">
+            START GAME
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="game-over-screen" id="gameOverScreen">
+
+        <div class="game-over-content">
+
+          <h3>GAME<br>OVER</h3>
+
+          <p>
+            FINAL SCORE:
+            <strong id="finalScore">0000</strong>
+          </p>
+
+          <button class="game-action" onclick="startCurrentGame()">
+            PLAY AGAIN
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="touch-controls" id="touchControls">
+
+        <button id="touchLeft">←</button>
+
+        <button id="touchFire" class="fire">
+          ACTION
+        </button>
+
+        <button id="touchRight">→</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
 <script>
 
 /*
 ============================================================
-IMPORTANT PATH STRUCTURE
+IMAGE PATH STRUCTURE
 
-The website does NOT use an "assets" folder.
+Images are NOT inside an assets folder.
 
-All images are expected directly under:
-WORK/
-and then their SUBFOLDERS.
+HOME:
+home/
 
-Example:
-work/halloween/cowboy-alien/
-work/halloween/the-beast/
-work/halloween/mummykon/
-work/halloween/vampikon/
+WORK:
+work/
 
+BIRTHDAYS:
+BIRTHDAYS/
+
+PHOTOCARDS:
+photocards/
+
+ANGEL:
+angel-version/
 ============================================================
 */
 
@@ -762,6 +1101,7 @@ function makeCard(src,label=""){
   card.className="card";
 
   const img=document.createElement("img");
+
   img.src=src;
   img.alt=label||src.split("/").pop();
   img.loading="lazy";
@@ -773,6 +1113,7 @@ function makeCard(src,label=""){
   };
 
   return card;
+
 }
 
 function renderGrid(id,folder,files,label=""){
@@ -890,6 +1231,7 @@ function toggleSub(button){
   const submenu=button.nextElementSibling;
 
   submenu.classList.toggle("open");
+
 }
 
 function showSection(id){
@@ -964,6 +1306,7 @@ function cycleTheme(){
   );
 
   applyTheme(theme);
+
 }
 
 media.addEventListener?.(
@@ -989,6 +1332,7 @@ function openLightbox(src,alt){
   image.alt=alt;
 
   lightbox.classList.add("open");
+
 }
 
 function closeLightbox(){
@@ -1001,6 +1345,7 @@ function closeLightbox(){
 
   lightbox.classList.remove("open");
   image.src="";
+
 }
 
 document
@@ -1017,41 +1362,1516 @@ document
 document.addEventListener(
   "keydown",
   event=>{
+
     if(event.key==="Escape"){
+
       closeLightbox();
       closeMenu();
+
+      if(gameRunning){
+        closeGame();
+      }
+
+    }
+
+  }
+);
+
+
+/*
+============================================================
+SAINT EYEKON GAMES
+============================================================
+*/
+
+const gameModal=
+  document.getElementById("gameModal");
+
+const canvas=
+  document.getElementById("gameCanvas");
+
+const ctx=
+  canvas.getContext("2d");
+
+const gameName=
+  document.getElementById("gameName");
+
+const gameScore=
+  document.getElementById("gameScore");
+
+const gameLives=
+  document.getElementById("gameLives");
+
+const gameInstructions=
+  document.getElementById("gameInstructions");
+
+const gameStartScreen=
+  document.getElementById("gameStartScreen");
+
+const gameOverScreen=
+  document.getElementById("gameOverScreen");
+
+const gameStartTitle=
+  document.getElementById("gameStartTitle");
+
+const gameStartText=
+  document.getElementById("gameStartText");
+
+const finalScore=
+  document.getElementById("finalScore");
+
+const touchControls=
+  document.getElementById("touchControls");
+
+let currentGame="";
+let gameRunning=false;
+let animationFrame=null;
+let lastTime=0;
+let gameTime=0;
+let score=0;
+let lives=3;
+let keys={};
+
+let player={
+  x:0,
+  y:0,
+  width:60,
+  height:30,
+  speed:7
+};
+
+let objects=[];
+let particles=[];
+let starsBackground=[];
+
+
+/* CANVAS SIZE */
+
+function resizeGameCanvas(){
+
+  const rect=
+    canvas.getBoundingClientRect();
+
+  const dpr=
+    Math.min(window.devicePixelRatio||1,2);
+
+  canvas.width=
+    Math.max(1,Math.floor(rect.width*dpr));
+
+  canvas.height=
+    Math.max(1,Math.floor(rect.height*dpr));
+
+  ctx.setTransform(
+    dpr,
+    0,
+    0,
+    dpr,
+    0,
+    0
+  );
+
+  if(currentGame){
+    setupPlayer();
+  }
+
+}
+
+window.addEventListener(
+  "resize",
+  ()=>{
+    if(gameModal.classList.contains("open")){
+      resizeGameCanvas();
     }
   }
 );
 
-/* GAMES */
 
-function gameMsg(button,text){
-  button.parentElement
-    .querySelector(".game-message")
-    .textContent=text;
+/* UTILITY */
+
+function W(){
+  return canvas.clientWidth;
 }
 
-function starCatcher(button){
-  gameMsg(
-    button,
-    "⭑ YOU CAUGHT A STAR. SCORE +1."
+function H(){
+  return canvas.clientHeight;
+}
+
+function random(min,max){
+  return Math.random()*(max-min)+min;
+}
+
+function clamp(value,min,max){
+  return Math.max(min,Math.min(max,value));
+}
+
+function distance(a,b){
+
+  return Math.hypot(
+    a.x-b.x,
+    a.y-b.y
   );
+
 }
 
-function cowboyAlien(button){
-  gameMsg(
-    button,
-    "☄ KHAOS LEVEL: ACTIVATED."
-  );
+function updateHUD(){
+
+  gameScore.textContent=
+    "SCORE "+String(Math.floor(score)).padStart(4,"0");
+
+  gameLives.textContent=
+    "♥ ".repeat(Math.max(0,lives)).trim();
+
 }
 
-function thunderRun(button){
-  gameMsg(
-    button,
-    "⚡ YOU SURVIVED THE THUNDER."
-  );
+function createBackgroundStars(){
+
+  starsBackground=[];
+
+  for(let i=0;i<90;i++){
+
+    starsBackground.push({
+      x:random(0,W()),
+      y:random(0,H()),
+      size:random(.5,2.2),
+      speed:random(.1,.6),
+      alpha:random(.2,.8)
+    });
+
+  }
+
 }
+
+function drawBackground(){
+
+  ctx.fillStyle="#020204";
+  ctx.fillRect(0,0,W(),H());
+
+  starsBackground.forEach(star=>{
+
+    star.y+=star.speed;
+
+    if(star.y>H()){
+      star.y=0;
+      star.x=random(0,W());
+    }
+
+    ctx.globalAlpha=star.alpha;
+
+    ctx.fillStyle="#fff";
+
+    ctx.beginPath();
+    ctx.arc(
+      star.x,
+      star.y,
+      star.size,
+      0,
+      Math.PI*2
+    );
+    ctx.fill();
+
+  });
+
+  ctx.globalAlpha=1;
+
+}
+
+function addParticles(x,y,count=10,type="star"){
+
+  for(let i=0;i<count;i++){
+
+    particles.push({
+      x:x,
+      y:y,
+      vx:random(-3,3),
+      vy:random(-3,3),
+      life:1,
+      size:random(2,6),
+      type:type
+    });
+
+  }
+
+}
+
+function updateParticles(){
+
+  particles.forEach(p=>{
+
+    p.x+=p.vx;
+    p.y+=p.vy;
+
+    p.vx*=.98;
+    p.vy*=.98;
+
+    p.life-=.025;
+
+  });
+
+  particles=
+    particles.filter(p=>p.life>0);
+
+}
+
+function drawParticles(){
+
+  particles.forEach(p=>{
+
+    ctx.globalAlpha=p.life;
+
+    ctx.fillStyle=
+      p.type==="thunder"
+      ? "#a8d8ff"
+      : p.type==="alien"
+      ? "#ff4df0"
+      : "#fff";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      p.x,
+      p.y,
+      p.size*p.life,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  });
+
+  ctx.globalAlpha=1;
+
+}
+
+
+/* GAME LAUNCH */
+
+function launchGame(type){
+
+  currentGame=type;
+
+  gameModal.classList.add("open");
+
+  gameStartScreen.style.display="flex";
+  gameOverScreen.style.display="none";
+
+  score=0;
+  lives=3;
+  gameTime=0;
+  objects=[];
+  particles=[];
+  keys={};
+
+  resizeGameCanvas();
+  createBackgroundStars();
+
+  if(type==="star"){
+
+    gameName.textContent="STAR CATCHER";
+
+    gameStartTitle.innerHTML=
+      "STAR<br>CATCHER";
+
+    gameStartText.innerHTML=
+      "CATCH THE FALLING STARS.<br>"+
+      "DON'T LET THE CHAOS ESCAPE.";
+
+    gameInstructions.textContent=
+      "DRAG / ← → TO MOVE • CATCH ⭐";
+
+    touchControls.style.display="flex";
+
+  }
+
+  if(type==="cowboy"){
+
+    gameName.textContent="COWBOY ALIEN";
+
+    gameStartTitle.innerHTML=
+      "COWBOY<br>ALIEN";
+
+    gameStartText.innerHTML=
+      "BE THE KHAOS.<br>"+
+      "SHOOT THE INVADERS.";
+
+    gameInstructions.textContent=
+      "DRAG TO MOVE • ACTION TO SHOOT";
+
+    touchControls.style.display="flex";
+
+  }
+
+  if(type==="thunder"){
+
+    gameName.textContent="THUNDER RUN";
+
+    gameStartTitle.innerHTML=
+      "THUNDER<br>RUN";
+
+    gameStartText.innerHTML=
+      "ESCAPE THE STORM.<br>"+
+      "SURVIVE THE ERA.";
+
+    gameInstructions.textContent=
+      "DRAG / ← → TO RUN • SURVIVE";
+
+    touchControls.style.display="flex";
+
+  }
+
+  updateHUD();
+
+  drawGame();
+
+}
+
+function startCurrentGame(){
+
+  gameStartScreen.style.display="none";
+  gameOverScreen.style.display="none";
+
+  gameRunning=true;
+  gameTime=0;
+  score=0;
+  lives=3;
+  objects=[];
+  particles=[];
+
+  setupPlayer();
+
+  lastTime=performance.now();
+
+  cancelAnimationFrame(animationFrame);
+
+  animationFrame=
+    requestAnimationFrame(gameLoop);
+
+}
+
+function closeGame(){
+
+  gameRunning=false;
+
+  cancelAnimationFrame(animationFrame);
+
+  gameModal.classList.remove("open");
+
+  keys={};
+
+}
+
+function gameOver(){
+
+  gameRunning=false;
+
+  cancelAnimationFrame(animationFrame);
+
+  finalScore.textContent=
+    String(Math.floor(score)).padStart(4,"0");
+
+  gameOverScreen.style.display="flex";
+
+}
+
+
+/* PLAYER */
+
+function setupPlayer(){
+
+  player.width=
+    currentGame==="thunder"
+    ? 46
+    : currentGame==="cowboy"
+    ? 70
+    : 76;
+
+  player.height=
+    currentGame==="thunder"
+    ? 48
+    : 32;
+
+  player.x=
+    W()/2;
+
+  player.y=
+    H()-100;
+
+}
+
+function movePlayer(direction){
+
+  player.x+=
+    direction*player.speed;
+
+  player.x=
+    clamp(
+      player.x,
+      player.width/2+8,
+      W()-player.width/2-8
+    );
+
+}
+
+
+/* MAIN LOOP */
+
+function gameLoop(time){
+
+  if(!gameRunning)return;
+
+  const dt=
+    Math.min((time-lastTime)/16.67,2);
+
+  lastTime=time;
+
+  gameTime+=dt/60;
+
+  drawGame();
+
+  if(currentGame==="star"){
+    updateStarCatcher(dt);
+  }
+
+  if(currentGame==="cowboy"){
+    updateCowboyAlien(dt);
+  }
+
+  if(currentGame==="thunder"){
+    updateThunderRun(dt);
+  }
+
+  updateParticles();
+
+  animationFrame=
+    requestAnimationFrame(gameLoop);
+
+}
+
+
+/* DRAW GAME */
+
+function drawGame(){
+
+  drawBackground();
+
+  if(currentGame==="star"){
+    drawStarCatcher();
+  }
+
+  if(currentGame==="cowboy"){
+    drawCowboyAlien();
+  }
+
+  if(currentGame==="thunder"){
+    drawThunderRun();
+  }
+
+  drawParticles();
+
+  updateHUD();
+
+}
+
+
+/*
+============================================================
+STAR CATCHER
+============================================================
+*/
+
+function updateStarCatcher(dt){
+
+  if(keys.ArrowLeft){
+    movePlayer(-1);
+  }
+
+  if(keys.ArrowRight){
+    movePlayer(1);
+  }
+
+  if(Math.random()<.035*dt){
+
+    objects.push({
+      type:"star",
+      x:random(25,W()-25),
+      y:-20,
+      size:random(10,19),
+      speed:random(2.5,5.5)+gameTime*.08,
+      rotation:random(0,Math.PI*2)
+    });
+
+  }
+
+  objects.forEach(obj=>{
+
+    obj.y+=obj.speed*dt;
+    obj.rotation+=.03*dt;
+
+  });
+
+  objects.forEach((obj,index)=>{
+
+    if(
+      obj.y+obj.size>
+        player.y-player.height/2 &&
+      obj.y-obj.size<
+        player.y+player.height/2 &&
+      Math.abs(obj.x-player.x)<
+        player.width/2+obj.size
+    ){
+
+      score+=10;
+
+      addParticles(
+        obj.x,
+        obj.y,
+        14,
+        "star"
+      );
+
+      objects.splice(index,1);
+
+    }
+
+  });
+
+  objects.forEach((obj,index)=>{
+
+    if(obj.y>H()+30){
+
+      lives--;
+
+      addParticles(
+        obj.x,
+        H()-20,
+        8,
+        "star"
+      );
+
+      objects.splice(index,1);
+
+      if(lives<=0){
+        gameOver();
+      }
+
+    }
+
+  });
+
+  score+=.03*dt;
+
+}
+
+function drawStarShape(x,y,r,rotation=0){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+  ctx.rotate(rotation);
+
+  ctx.beginPath();
+
+  for(let i=0;i<10;i++){
+
+    const radius=
+      i%2===0
+      ? r
+      : r*.42;
+
+    const angle=
+      -Math.PI/2+
+      i*Math.PI/5;
+
+    const px=
+      Math.cos(angle)*radius;
+
+    const py=
+      Math.sin(angle)*radius;
+
+    if(i===0){
+      ctx.moveTo(px,py);
+    }else{
+      ctx.lineTo(px,py);
+    }
+
+  }
+
+  ctx.closePath();
+
+  ctx.fillStyle="#fff";
+  ctx.shadowColor="#fff";
+  ctx.shadowBlur=18;
+
+  ctx.fill();
+
+  ctx.restore();
+
+}
+
+function drawStarCatcher(){
+
+  objects.forEach(obj=>{
+
+    drawStarShape(
+      obj.x,
+      obj.y,
+      obj.size,
+      obj.rotation
+    );
+
+  });
+
+  /* PLAYER */
+
+  const x=player.x;
+  const y=player.y;
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+  ctx.fillStyle="#fff";
+  ctx.strokeStyle="#fff";
+  ctx.lineWidth=2;
+
+  ctx.beginPath();
+  ctx.roundRect(
+    -player.width/2,
+    -player.height/2,
+    player.width,
+    player.height,
+    7
+  );
+  ctx.fill();
+
+  ctx.fillStyle="#050505";
+
+  ctx.beginPath();
+  ctx.arc(-14,0,4,0,Math.PI*2);
+  ctx.arc(14,0,4,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.restore();
+
+}
+
+
+/*
+============================================================
+COWBOY ALIEN
+============================================================
+*/
+
+let cowboyCooldown=0;
+
+function updateCowboyAlien(dt){
+
+  if(keys.ArrowLeft){
+    movePlayer(-1);
+  }
+
+  if(keys.ArrowRight){
+    movePlayer(1);
+  }
+
+  cowboyCooldown-=dt;
+
+  if(keys.Space && cowboyCooldown<=0){
+
+    cowboyShoot();
+    cowboyCooldown=14;
+
+  }
+
+  if(Math.random()<.018*dt){
+
+    objects.push({
+
+      type:"alien",
+      x:random(35,W()-35),
+      y:-40,
+      size:random(20,28),
+      speed:random(1.3,2.7)+gameTime*.04,
+      hp:1
+
+    });
+
+  }
+
+  objects.forEach(obj=>{
+
+    if(obj.type==="alien"){
+
+      obj.y+=obj.speed*dt;
+
+    }
+
+    if(obj.type==="bullet"){
+
+      obj.y-=8*dt;
+
+    }
+
+  });
+
+  objects.forEach((alien,alienIndex)=>{
+
+    if(alien.type!=="alien")return;
+
+    if(
+      alien.y+alien.size>
+        player.y-player.height/2 &&
+      alien.y-alien.size<
+        player.y+player.height/2 &&
+      Math.abs(alien.x-player.x)<
+        player.width/2+alien.size
+    ){
+
+      lives--;
+
+      addParticles(
+        alien.x,
+        alien.y,
+        18,
+        "alien"
+      );
+
+      objects.splice(alienIndex,1);
+
+      if(lives<=0){
+        gameOver();
+      }
+
+    }
+
+  });
+
+  objects.forEach((bullet,bulletIndex)=>{
+
+    if(bullet.type!=="bullet")return;
+
+    objects.forEach((alien,alienIndex)=>{
+
+      if(alien.type!=="alien")return;
+
+      if(
+        Math.abs(bullet.x-alien.x)<
+          alien.size &&
+        Math.abs(bullet.y-alien.y)<
+          alien.size
+      ){
+
+        score+=25;
+
+        addParticles(
+          alien.x,
+          alien.y,
+          22,
+          "alien"
+        );
+
+        objects.splice(alienIndex,1);
+        objects.splice(bulletIndex,1);
+
+      }
+
+    });
+
+  });
+
+  objects.forEach((obj,index)=>{
+
+    if(
+      obj.type==="alien" &&
+      obj.y>H()+40
+    ){
+
+      lives--;
+
+      objects.splice(index,1);
+
+      if(lives<=0){
+        gameOver();
+      }
+
+    }
+
+    if(
+      obj.type==="bullet" &&
+      obj.y<-30
+    ){
+
+      objects.splice(index,1);
+
+    }
+
+  });
+
+  score+=.02*dt;
+
+}
+
+function cowboyShoot(){
+
+  objects.push({
+
+    type:"bullet",
+    x:player.x,
+    y:player.y-25
+
+  });
+
+}
+
+function drawAlien(x,y,size){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+  ctx.fillStyle="#9cff8c";
+  ctx.strokeStyle="#fff";
+  ctx.lineWidth=2;
+
+  /* HEAD */
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    0,
+    0,
+    size*.75,
+    size,
+    0,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+  ctx.stroke();
+
+  /* EYES */
+
+  ctx.fillStyle="#050505";
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    -size*.25,
+    -2,
+    size*.13,
+    size*.27,
+    -.2,
+    0,
+    Math.PI*2
+  );
+
+  ctx.ellipse(
+    size*.25,
+    -2,
+    size*.13,
+    size*.27,
+    .2,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+  /* HAT */
+
+  ctx.fillStyle="#b87935";
+
+  ctx.fillRect(
+    -size*.75,
+    -size*.95,
+    size*1.5,
+    size*.16
+  );
+
+  ctx.fillRect(
+    -size*.42,
+    -size*1.28,
+    size*.84,
+    size*.38
+  );
+
+  /* BODY */
+
+  ctx.fillStyle="#654321";
+
+  ctx.fillRect(
+    -size*.48,
+    size*.65,
+    size*.96,
+    size*.65
+  );
+
+  ctx.restore();
+
+}
+
+function drawCowboyAlien(){
+
+  objects.forEach(obj=>{
+
+    if(obj.type==="alien"){
+
+      drawAlien(
+        obj.x,
+        obj.y,
+        obj.size
+      );
+
+    }
+
+    if(obj.type==="bullet"){
+
+      ctx.save();
+
+      ctx.fillStyle="#fff";
+      ctx.shadowColor="#ff4df0";
+      ctx.shadowBlur=15;
+
+      ctx.fillRect(
+        obj.x-2,
+        obj.y-10,
+        4,
+        18
+      );
+
+      ctx.restore();
+
+    }
+
+  });
+
+  /* PLAYER COWBOY */
+
+  ctx.save();
+
+  ctx.translate(
+    player.x,
+    player.y
+  );
+
+  ctx.fillStyle="#c68a52";
+
+  ctx.beginPath();
+  ctx.arc(
+    0,
+    -8,
+    15,
+    0,
+    Math.PI*2
+  );
+  ctx.fill();
+
+  ctx.fillStyle="#b87935";
+
+  ctx.fillRect(
+    -30,
+    -27,
+    60,
+    7
+  );
+
+  ctx.fillRect(
+    -18,
+    -42,
+    36,
+    17
+  );
+
+  ctx.fillStyle="#fff";
+
+  ctx.fillRect(
+    -19,
+    8,
+    38,
+    17
+  );
+
+  ctx.fillStyle="#050505";
+
+  ctx.beginPath();
+
+  ctx.arc(-6,-10,3,0,Math.PI*2);
+  ctx.arc(6,-10,3,0,Math.PI*2);
+
+  ctx.fill();
+
+  ctx.restore();
+
+}
+
+
+/*
+============================================================
+THUNDER RUN
+============================================================
+*/
+
+function updateThunderRun(dt){
+
+  if(keys.ArrowLeft){
+    movePlayer(-1);
+  }
+
+  if(keys.ArrowRight){
+    movePlayer(1);
+  }
+
+  if(Math.random()<(.025+gameTime*.001)*dt){
+
+    objects.push({
+
+      type:"thunder",
+      x:random(30,W()-30),
+      y:-60,
+      width:random(28,50),
+      height:random(35,65),
+      speed:random(4,7)+gameTime*.15
+
+    });
+
+  }
+
+  objects.forEach(obj=>{
+
+    obj.y+=obj.speed*dt;
+
+  });
+
+  objects.forEach((obj,index)=>{
+
+    if(
+      obj.y+obj.height/2>
+        player.y-player.height/2 &&
+      obj.y-obj.height/2<
+        player.y+player.height/2 &&
+      Math.abs(obj.x-player.x)<
+        obj.width/2+player.width/2
+    ){
+
+      lives--;
+
+      addParticles(
+        player.x,
+        player.y,
+        25,
+        "thunder"
+      );
+
+      objects.splice(index,1);
+
+      player.x=
+        random(
+          player.width,
+          W()-player.width
+        );
+
+      if(lives<=0){
+        gameOver();
+      }
+
+    }
+
+  });
+
+  objects.forEach((obj,index)=>{
+
+    if(obj.y>H()+80){
+
+      score+=5;
+
+      objects.splice(index,1);
+
+    }
+
+  });
+
+  score+=.12*dt;
+
+}
+
+function drawLightning(x,y,width,height){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+  ctx.strokeStyle="#a8d8ff";
+  ctx.lineWidth=3;
+  ctx.shadowColor="#75bfff";
+  ctx.shadowBlur=25;
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    -width*.15,
+    -height/2
+  );
+
+  ctx.lineTo(
+    width*.12,
+    -height*.08
+  );
+
+  ctx.lineTo(
+    -width*.08,
+    -height*.03
+  );
+
+  ctx.lineTo(
+    width*.2,
+    height/2
+  );
+
+  ctx.stroke();
+
+  ctx.restore();
+
+}
+
+function drawThunderRun(){
+
+  /* ROAD / STORM */
+
+  ctx.save();
+
+  ctx.strokeStyle="rgba(255,255,255,.08)";
+  ctx.lineWidth=1;
+
+  for(let i=0;i<10;i++){
+
+    const y=
+      (i*H()/10+
+      (gameTime*100)%H());
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      W()/2,
+      y
+    );
+
+    ctx.lineTo(
+      W()/2+(i%2===0?W()*.25:-W()*.25),
+      y+70
+    );
+
+    ctx.stroke();
+
+  }
+
+  ctx.restore();
+
+  objects.forEach(obj=>{
+
+    drawLightning(
+      obj.x,
+      obj.y,
+      obj.width,
+      obj.height
+    );
+
+  });
+
+  /* PLAYER */
+
+  ctx.save();
+
+  ctx.translate(
+    player.x,
+    player.y
+  );
+
+  /* BODY */
+
+  ctx.fillStyle="#fff";
+
+  ctx.beginPath();
+
+  ctx.roundRect(
+    -18,
+    -22,
+    36,
+    44,
+    10
+  );
+
+  ctx.fill();
+
+  /* HEAD */
+
+  ctx.fillStyle="#050505";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    -8,
+    8,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+  /* LIGHT */
+
+  ctx.fillStyle="#a8d8ff";
+  ctx.shadowColor="#75bfff";
+  ctx.shadowBlur=20;
+
+  ctx.fillRect(
+    -5,
+    17,
+    10,
+    8
+  );
+
+  /* MOTION TRAIL */
+
+  ctx.fillStyle="rgba(168,216,255,.35)";
+
+  ctx.fillRect(
+    -10,
+    30,
+    20,
+    25
+  );
+
+  ctx.restore();
+
+}
+
+
+/*
+============================================================
+TOUCH + KEYBOARD CONTROLS
+============================================================
+*/
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      ["ArrowLeft","ArrowRight","Space"]
+      .includes(event.code)
+    ){
+
+      event.preventDefault();
+
+    }
+
+    keys[event.code]=true;
+
+  }
+);
+
+document.addEventListener(
+  "keyup",
+  event=>{
+
+    keys[event.code]=false;
+
+  }
+);
+
+
+/* TOUCH LEFT */
+
+const touchLeft=
+  document.getElementById("touchLeft");
+
+const touchRight=
+  document.getElementById("touchRight");
+
+const touchFire=
+  document.getElementById("touchFire");
+
+function holdControl(button,key){
+
+  const down=e=>{
+
+    e.preventDefault();
+
+    keys[key]=true;
+
+  };
+
+  const up=e=>{
+
+    e.preventDefault();
+
+    keys[key]=false;
+
+  };
+
+  button.addEventListener(
+    "pointerdown",
+    down
+  );
+
+  button.addEventListener(
+    "pointerup",
+    up
+  );
+
+  button.addEventListener(
+    "pointercancel",
+    up
+  );
+
+  button.addEventListener(
+    "pointerleave",
+    up
+  );
+
+}
+
+holdControl(
+  touchLeft,
+  "ArrowLeft"
+);
+
+holdControl(
+  touchRight,
+  "ArrowRight"
+);
+
+
+/* FIRE / ACTION */
+
+touchFire.addEventListener(
+  "pointerdown",
+  event=>{
+
+    event.preventDefault();
+
+    keys.Space=true;
+
+    if(
+      currentGame==="cowboy" &&
+      gameRunning
+    ){
+
+      cowboyShoot();
+
+    }
+
+  }
+);
+
+touchFire.addEventListener(
+  "pointerup",
+  event=>{
+
+    event.preventDefault();
+
+    keys.Space=false;
+
+  }
+);
+
+touchFire.addEventListener(
+  "pointercancel",
+  event=>{
+
+    event.preventDefault();
+
+    keys.Space=false;
+
+  }
+);
+
+
+/* DRAG CONTROL */
+
+let dragging=false;
+
+canvas.addEventListener(
+  "pointerdown",
+  event=>{
+
+    if(!gameRunning)return;
+
+    dragging=true;
+
+    canvas.setPointerCapture?.(
+      event.pointerId
+    );
+
+    movePlayerToPointer(event);
+
+    if(
+      currentGame==="cowboy"
+    ){
+
+      cowboyShoot();
+
+    }
+
+  }
+);
+
+canvas.addEventListener(
+  "pointermove",
+  event=>{
+
+    if(!dragging || !gameRunning)return;
+
+    movePlayerToPointer(event);
+
+  }
+);
+
+canvas.addEventListener(
+  "pointerup",
+  event=>{
+
+    dragging=false;
+
+    canvas.releasePointerCapture?.(
+      event.pointerId
+    );
+
+  }
+);
+
+canvas.addEventListener(
+  "pointercancel",
+  ()=>{
+    dragging=false;
+  }
+);
+
+function movePlayerToPointer(event){
+
+  const rect=
+    canvas.getBoundingClientRect();
+
+  const x=
+    event.clientX-rect.left;
+
+  player.x=
+    clamp(
+      x,
+      player.width/2+8,
+      W()-player.width/2-8
+    );
+
+}
+
+
+/* INITIAL CANVAS */
+
+resizeGameCanvas();
+createBackgroundStars();
+drawGame();
 
 </script>
 
